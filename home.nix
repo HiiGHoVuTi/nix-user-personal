@@ -23,6 +23,9 @@
     cabal-install
     stack
     haskell-language-server
+    # Utils
+    imagemagick
+    xclip
   ];
 
 
