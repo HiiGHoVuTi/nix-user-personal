@@ -42,6 +42,7 @@
       alias nedo=sudo
       source $HOME/.p10k.zsh
       export PATH=$HOME/.ghcup/bin/:$HOME/.velle/:$PATH
+      export PATH=$HOME/.config/nixpkgs/scripts/:$PATH
     '';
   };
 
