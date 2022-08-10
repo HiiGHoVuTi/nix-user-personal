@@ -15,7 +15,7 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
@@ -33,7 +33,7 @@
         extraModules = [
           # ./home.nix
         ];
-        extraSpecialArgs = { inherit (pkgs) helix; };
+        extraSpecialArgs = { inherit (inputs) helix; };
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
