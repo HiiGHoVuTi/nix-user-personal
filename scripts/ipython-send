@@ -1,0 +1,39 @@
+#! /usr/bin/env nix-shell
+#! nix-shell <nixpkgs> -i runghc -p "ghc.withPackages (p: [ p.process ])"
+
+import Data.List
+import System.Environment
+import System.Process
+
+-- SPEED, the loading time is annoying, maybe i wanna compile it
+main = do
+  args <- getArgs
+  {- let package = head args
+      command = foldl (\a b -> a <> " " <> b) "" args
+  callCommand $ "nix-shell -p " <> package <> " --command \""  <>command <> "\""
+  -}
+  let [ path, row, col ] = words [ if x /= ':' then x else ' ' | x <- head args ]
+  contents <- readFile path
+  let reg  = getRegion (read row) $ lines contents
+      keys = format (filter (not.null) reg) <> " ENTER"
+  print keys
+  callCommand $ "tmux send-keys -t ipython.0 " <> keys
+
+format [ ] = ""
+format [x] = "\"" <> x <> "\""
+format xs  = foldl1 (\a b -> "\"" <> a <> "\"" <> " ENTER " <> "\"" <> b <> "\"") xs
+
+getRegion :: Int -> [String] -> [String]
+getRegion col lines = reverse $ go col [] lines
+  where
+    go col buffer [] = buffer
+    go col buffer (l:rs)
+      | "#%%" `isPrefixOf` l = 
+        if col <= 0 
+          then buffer 
+          else                 go (col - 1)      []      rs
+      | otherwise            = go (col - 1) (q l:buffer) rs
+    q "" = ""
+    q ('\"':r) = "\\\"" <> q r
+    q (l:r) = l : q r
+

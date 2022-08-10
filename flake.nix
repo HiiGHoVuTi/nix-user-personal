@@ -8,24 +8,36 @@
       url = "github:nix-community/home-manager/release-22.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    helix = {
+      url = "github:helix-editor/helix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, home-manager, ... }:
     let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
+      pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
+    in
+    {
       homeConfigurations.maxime = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
+        inherit system;
+        configuration = import ./home.nix;
+        homeDirectory = "/home/maxime";
+        username = "maxime";
 
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
-        modules = [
-          ./home.nix
+        extraModules = [
+          # ./home.nix
         ];
+        extraSpecialArgs = { inherit (pkgs) helix; };
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
+        stateVersion = "21.05";
       };
     };
 }

@@ -1,0 +1,2 @@
+ITEM=$(:| dmenu -i -p "Cheatsheet item")
+curl cheat.sh/$ITEM

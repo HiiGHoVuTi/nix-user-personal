@@ -1,6 +1,10 @@
 
 { config, pkgs, ... }:
 
+let
+  unstable = import (builtins.fetchTarball https://github.com/nixos/nixpkgs/tarball/nixpkgs-unstable) 
+    { config = pkgs; };
+in
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -11,6 +15,8 @@
     allowUnfree = true;
   };
   home.packages = with pkgs; [ 
+    # Notes
+    p3x-onenote
     # Entertainment
     discord
     spotify
@@ -24,10 +30,13 @@
     stack
     haskell-language-server
     # Utils
+    rnix-lsp
     imagemagick
     xclip
+    tmux
   ];
 
+  imports = [ ./helix.nix ];
 
   programs.zsh = {
     enable = true;
@@ -41,10 +50,14 @@
     initExtra = ''
       alias nedo=sudo
       source $HOME/.p10k.zsh
+      source $HOME/.zshhook
       export PATH=$HOME/.ghcup/bin/:$HOME/.velle/:$PATH
       export PATH=$HOME/.config/nixpkgs/scripts/:$PATH
-    '';
+      '';
   };
+  
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
