@@ -5,7 +5,7 @@
 } @ args: {
   programs.helix = {
     enable = true;
-    package = helix;
+    package = helix.packages.${pkgs.system}.helix;
 
     languages = [ ];
 
