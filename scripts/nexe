@@ -1,5 +1,4 @@
-#! /usr/bin/env nix-shell
-#! nix-shell <nixpkgs> -i runghc -p "ghc.withPackages (p: [ p.process ])"
+#! /usr/bin/env -S nix shell --expr 'with (builtins.getFlake "nixpkgs").legacyPackages.${builtins.currentSystem}; ghc.withPackages (p: [p.process])' --impure -c runhaskell
 
 import System.Environment
 import System.Process
@@ -8,5 +7,5 @@ main = do
   args <- getArgs
   let package = head args
       command = foldl (\a b -> a <> " " <> b) "" args
-  callCommand $ "nix-shell -p " <> package <> " --command \""  <>command <> "\""
+  callCommand $ "nix shell nixpkgs#" <> package <> " --command " <> command
 
