@@ -7,12 +7,17 @@
     enable = true;
     package = helix.packages.${pkgs.system}.helix;
 
-    languages = [ ];
+    languages = [ 
+      { 
+        name = "clojure";
+        indent = { tab-width=2; unit="tab"; }; 
+      } 
+    ];
 
     settings = {
       theme = "catppuccin_mocha";
       editor = {
-        true-color = true;
+        # true-color = true;
         cursor-shape = {
           insert = "bar";
           normal = "block";
@@ -21,6 +26,10 @@
         file-picker.hidden = false;
       };
 
+      keys.insert.right = "move_char_right";
+      keys.insert.left = "move_char_left";
+      keys.insert.down = "move_line_down";
+      keys.insert.up = "move_line_up";
       keys.normal.a = "insert_mode";
       keys.normal.space.u = {
         f = ":format"; # format using LSP formatter
