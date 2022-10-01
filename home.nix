@@ -36,7 +36,7 @@ in
     tmux
   ];
 
-  imports = [ ./helix.nix ];
+  imports = [ ./helix.nix ./kakoune.nix ];
 
   programs.zsh = {
     enable = true;

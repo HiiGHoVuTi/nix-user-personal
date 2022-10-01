@@ -5,7 +5,7 @@
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/release-22.05";
     home-manager = {
-      url = "github:nix-community/home-manager/release-22.05";
+      url = "github:nix-community/home-manager/release-22.05";#8bdd7cc552acb2f78391d82cccdfc0b306fbc623";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
