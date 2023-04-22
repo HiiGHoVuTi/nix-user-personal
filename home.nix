@@ -17,6 +17,7 @@ in
   home.packages = with pkgs; [ 
     # Notes
     p3x-onenote
+    obsidian
     # Entertainment
     discord
     spotify

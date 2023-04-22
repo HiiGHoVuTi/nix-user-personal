@@ -7,28 +7,34 @@
     enable = true;
     package = helix.packages.${pkgs.system}.helix;
 
-    languages = [
-      {
-        name = "clojure";
-        indent = { tab-width = 2; unit = "  "; };
-      }
-      {
-        name = "dodu";
-        roots = [ ];
-        indent = { tab-width = 2; unit = "  "; };
-        scope = "source.dodu";
-        file-types = [ "dodu" "du" ];
-        comment-token = "--";
-      }
-    ];
+    languages = with pkgs; {
+      language =
+        [
+          {
+            name = "clojure";
+            indent = { tab-width = 2; unit = "  "; };
+          }
+          {
+            name = "dodu";
+            roots = [ ];
+            indent = { tab-width = 2; unit = "  "; };
+            scope = "source.dodu";
+            file-types = [ "dodu" "du" ];
+            comment-token = "--";
+          }
+        ];
+      grammar = [
 
-     # {
-     #   name = "dodu";
-     #   source = {
-     #     git = "https://github.com/HiiGHoVuTi/tree-sitter-dodu";
-     #     rev = "abb117e125bc599eef0d1695367597225ef31408";
-     #   };
-     # }
+        {
+          name = "dodu";
+          source = {
+            git = "https://github.com/HiiGHoVuTi/tree-sitter-dodu";
+            rev = "abb117e125bc599eef0d1695367597225ef31408";
+          };
+        }
+      ];
+    };
+
 
     settings = {
       theme = "catppuccin_mocha";

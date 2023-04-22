@@ -5,7 +5,7 @@
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/release-22.05";
     home-manager = {
-      url = "github:nix-community/home-manager/release-22.05";#8bdd7cc552acb2f78391d82cccdfc0b306fbc623";
+      url = "github:nix-community/home-manager/8bdd7cc552acb2f78391d82cccdfc0b306fbc623";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -23,21 +23,19 @@
     {
       homeConfigurations.maxime = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        inherit system;
-        configuration = import ./home.nix;
-        homeDirectory = "/home/maxime";
-        username = "maxime";
+        # inherit system;
+        # configuration = import ./home.nix;
+        # homeDirectory = "/home/maxime";
+        # username = "maxime";
 
+        modules = [./home.nix];
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
-        extraModules = [
-          # ./home.nix
-        ];
         extraSpecialArgs = { inherit (inputs) helix; };
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
-        stateVersion = "21.05";
+        # stateVersion = "21.05";
       };
     };
 }
