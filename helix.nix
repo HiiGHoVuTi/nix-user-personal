@@ -53,7 +53,7 @@
       keys.insert.down = "move_line_down";
       keys.insert.up = "move_line_up";
       keys.normal.a = "insert_mode";
-      keys.normal.space.u = {
+      keys.normal.space = {
         f = ":format"; # format using LSP formatter
       };
     };
