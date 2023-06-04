@@ -54,7 +54,7 @@
       keys.insert.up = "move_line_up";
       keys.normal.a = "insert_mode";
       keys.normal.space = {
-        f = ":format"; # format using LSP formatter
+        e = ":format"; # format using LSP formatter
       };
     };
 

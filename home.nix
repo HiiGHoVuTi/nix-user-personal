@@ -31,6 +31,7 @@ in
     stack
     haskell-language-server
     # Utils
+    pass
     rnix-lsp
     imagemagick
     xclip
