@@ -2,8 +2,8 @@
 { config, pkgs, ... }:
 
 let
-  unstable = import (builtins.fetchTarball https://github.com/nixos/nixpkgs/tarball/nixpkgs-unstable) 
-    { config = pkgs; };
+  # unstable = import (builtins.fetchTarball https://github.com/nixos/nixpkgs/tarball/nixpkgs-unstable) 
+  #   { config = pkgs; };
 in
 {
   # Home Manager needs a bit of information about you and the
@@ -37,6 +37,14 @@ in
     xclip
     tmux
   ];
+
+  nixpkgs.overlays =
+    let
+      betterDiscord = self: super: {
+        discord = super.discord.override { withOpenASAR = true; withVencord = true; };
+      };
+    in
+      [ betterDiscord ];
 
   imports = [ ./helix.nix ];
 
