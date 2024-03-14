@@ -13,6 +13,10 @@ in
 
   nixpkgs.config = {
     allowUnfree = true;
+
+    permittedInsecurePackages = [
+      "electron-24.8.6"
+    ];  
   };
   home.packages = with pkgs; [ 
     # Notes
@@ -32,10 +36,12 @@ in
     haskell-language-server
     # Utils
     pass
+    pandoc
     rnix-lsp
     imagemagick
     xclip
     tmux
+    screen
   ];
 
   nixpkgs.overlays =
@@ -44,7 +50,8 @@ in
         discord = super.discord.override { withOpenASAR = true; withVencord = true; };
       };
     in
-      [ betterDiscord ];
+      # [ betterDiscord ];
+      [];
 
   imports = [ ./helix.nix ];
 
@@ -63,6 +70,7 @@ in
       source $HOME/.zshhook
       export PATH=$HOME/.ghcup/bin/:$HOME/.velle/:$PATH
       export PATH=$HOME/.config/nixpkgs/scripts/:$PATH
+      export EDITOR=hx
       '';
   };
   
